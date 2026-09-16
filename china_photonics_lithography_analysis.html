@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where China Is Behind in Photonics and Lithography</title>
+<style>
+  @page {
+    size: A4;
+    margin: 17mm 16mm 18mm;
+    @bottom-left { content: "China photonics & lithography · supplied-analysis edition"; color: #718096; font: 8pt Arial, sans-serif; }
+    @bottom-right { content: "Page " counter(page); color: #718096; font: 8pt Arial, sans-serif; }
+  }
+  :root {
+    --ink:#17212b; --muted:#617182; --navy:#0b2239; --blue:#1967a3;
+    --cyan:#13a6b8; --amber:#d9942f; --line:#d9e2ea; --paper:#ffffff;
+    --soft:#eef4f7; --soft-blue:#e8f2f8; --soft-amber:#fff5e5;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body { color:var(--ink); background:#f4f7f9; font-family: Arial, Helvetica, sans-serif; font-size:10.4pt; line-height:1.48; }
+  .sheet { background:var(--paper); max-width:900px; margin:0 auto; padding:0 0 12mm; }
+  .cover { min-height:245mm; background:var(--navy); color:#f8fbfd; padding:28mm 20mm 20mm; display:flex; flex-direction:column; justify-content:space-between; page-break-after:always; }
+  .eyebrow { color:#7edbe2; text-transform:uppercase; letter-spacing:.16em; font-size:8.5pt; font-weight:700; }
+  .cover h1 { font-family: Georgia, 'Times New Roman', serif; font-size:30pt; line-height:1.05; max-width:155mm; margin:14mm 0 7mm; letter-spacing:-.02em; }
+  .cover .deck { color:#cfe0ea; font-size:14pt; line-height:1.4; max-width:145mm; }
+  .rule { height:3px; width:42mm; background:var(--amber); margin:11mm 0; }
+  .cover-meta { border-top:1px solid #426079; padding-top:7mm; display:grid; grid-template-columns:1fr 1fr; gap:8mm; color:#aac1cf; font-size:9pt; }
+  .cover-meta strong { display:block; color:#f8fbfd; font-size:10pt; margin-bottom:1mm; }
+  .notice { border-left:4px solid var(--amber); background:rgba(255,255,255,.08); padding:6mm 7mm; color:#e6f0f5; font-size:9.5pt; }
+  main { padding:0 16mm; }
+  h2 { font-family: Georgia, 'Times New Roman', serif; color:var(--navy); font-size:19pt; line-height:1.15; margin:13mm 0 5mm; padding-bottom:3mm; border-bottom:2px solid var(--line); page-break-after:avoid; }
+  h3 { color:var(--blue); font-size:12.5pt; margin:8mm 0 3mm; page-break-after:avoid; }
+  p { margin:0 0 4mm; }
+  .lead { font-family: Georgia, 'Times New Roman', serif; font-size:13pt; line-height:1.45; color:#273b4d; }
+  .kicker { color:var(--blue); text-transform:uppercase; letter-spacing:.12em; font-size:8pt; font-weight:700; margin-top:9mm; }
+  .callout { background:var(--soft-blue); border:1px solid #c7dce8; border-radius:3px; padding:6mm 7mm; margin:6mm 0; page-break-inside:avoid; }
+  .callout.warn { background:var(--soft-amber); border-color:#efd7ad; border-left:4px solid var(--amber); }
+  .callout strong { color:var(--navy); }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:7mm; margin:5mm 0; }
+  .panel { border-top:3px solid var(--cyan); background:var(--soft); padding:5mm 6mm; page-break-inside:avoid; }
+  .panel h3 { margin:0 0 3mm; color:var(--navy); font-size:11.5pt; }
+  ul, ol { margin:2mm 0 5mm 6mm; padding-left:6mm; }
+  li { margin:1.7mm 0; }
+  .numbered { counter-reset:item; list-style:none; padding-left:0; margin-left:0; }
+  .numbered li { counter-increment:item; display:grid; grid-template-columns:8mm 1fr; gap:3mm; margin:3.5mm 0; }
+  .numbered li::before { content:counter(item); color:white; background:var(--blue); width:6mm; height:6mm; line-height:6mm; text-align:center; border-radius:50%; font-size:8pt; font-weight:700; }
+  .question-grid { display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin:5mm 0 7mm; }
+  .question { border:1px solid var(--line); padding:4mm; background:#fbfcfd; min-height:18mm; page-break-inside:avoid; }
+  .question b { color:var(--navy); }
+  .badge-row { display:flex; flex-wrap:wrap; gap:2.5mm; margin:5mm 0; }
+  .badge { border:1px solid #b9ccd8; color:var(--blue); padding:1.5mm 3mm; border-radius:20px; font-size:8.5pt; font-weight:700; background:#f6fafc; }
+  .matrix { width:100%; border-collapse:collapse; margin:5mm 0 7mm; font-size:9pt; page-break-inside:auto; }
+  .matrix th { background:var(--navy); color:white; text-align:left; padding:3mm; font-size:8.5pt; }
+  .matrix td { border:1px solid var(--line); vertical-align:top; padding:3mm; }
+  .matrix tr:nth-child(even) td { background:#f8fafb; }
+  .source-list { list-style:none; padding:0; margin:4mm 0; }
+  .source-list li { padding:2.5mm 0; border-bottom:1px solid var(--line); page-break-inside:avoid; }
+  .source-list a { color:var(--blue); overflow-wrap:anywhere; }
+  .small { font-size:8.5pt; color:var(--muted); }
+  .footer-note { margin-top:10mm; padding-top:4mm; border-top:1px solid var(--line); color:var(--muted); font-size:8.5pt; }
+  .section-break { page-break-before:always; }
+  @media print {
+    body { background:white; }
+    .sheet { max-width:none; }
+    .two-col, .question-grid { grid-template-columns:1fr 1fr; }
+    a { color:inherit; text-decoration:none; }
+  }
+  @media (max-width:700px) {
+    .two-col, .question-grid, .cover-meta { grid-template-columns:1fr; }
+    .cover h1 { font-size:25pt; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <section class="cover">
+    <div>
+      <div class="eyebrow">Photonics · Lithography · Industrial capability</div>
+      <h1>Where China Is Behind in Photonics and Lithography</h1>
+      <div class="deck">China vs. US and Western teams — a formatted edition of the supplied analysis.</div>
+      <div class="rule"></div>
+      <div class="notice"><strong>Reading note.</strong> This edition formats the analysis text supplied in chat. It does not invent the missing earlier sections, fill missing citations, or treat compressed conference photographs as OCR evidence.</div>
+    </div>
+    <div class="cover-meta">
+      <div><strong>Core lens</strong>Upstream precision, materials, integration, yield and scale economics</div>
+      <div><strong>Current evidence status</strong>Supplied text + four supplied source links; photo OCR pending originals</div>
+    </div>
+  </section>
+
+  <main>
+    <div class="kicker">Executive thesis</div>
+    <p class="lead">China is strong downstream in modules and communications hardware, but weaker upstream in the precision tools, materials, and photonic/electronic integration needed for the next generation of systems.</p>
+
+    <div class="callout warn"><strong>Bottom line:</strong> The gap is less about a lack of research creativity and more about converting demonstrations and pilot capability into precision, yield, reliability, qualified supply and repeatable volume economics.</div>
+
+    <div class="badge-row">
+      <span class="badge">Upstream precision</span><span class="badge">EUV / High-NA</span><span class="badge">Metrology</span><span class="badge">CPO / NPO</span><span class="badge">Yield & reliability</span>
+    </div>
+
+    <h2>9. Optical computing: strong demonstrations, weaker general-purpose proof</h2>
+    <p>Chinese universities have produced impressive optical-computing demonstrations, including Tsinghua’s ACCEL work. But CSIS cautioned that these systems were narrow, task-specific, and not yet equivalent to general-purpose GPUs.<sup>[12]</sup></p>
+    <p>The key questions for any impressive conference demo are:</p>
+    <div class="question-grid">
+      <div class="question"><b>Workload</b><br>What workload?</div>
+      <div class="question"><b>Precision</b><br>What precision?</div>
+      <div class="question"><b>Architecture</b><br>Analog or digital?</div>
+      <div class="question"><b>Mode</b><br>Inference only or training too?</div>
+      <div class="question"><b>Electronic overhead</b><br>Does the optical result require electronic correction?</div>
+      <div class="question"><b>Total energy</b><br>Include lasers, ADCs, DACs, memory and control.</div>
+      <div class="question"><b>Programmability</b><br>Is it programmable?</div>
+      <div class="question"><b>Generality</b><br>Can it run a broad model family?</div>
+      <div class="question"><b>Commercial reality</b><br>Has it shipped beyond the lab?</div>
+    </div>
+    <p>On this front, China is not necessarily behind in research creativity. It is behind in converting many of those demonstrations into robust, programmable, economically viable products.</p>
+
+    <h2>The “West” is not one team</h2>
+    <p>The leading Western/allied stack is distributed:</p>
+    <div class="two-col">
+      <div class="panel"><h3>Europe</h3><ul><li><b>Netherlands:</b> ASML lithography-system integration</li><li><b>Germany:</b> ZEISS EUV optics; TRUMPF high-power laser systems</li><li><b>Belgium:</b> imec process integration, photonic foundry, packaging and reliability research</li></ul></div>
+      <div class="panel"><h3>US, Japan and Taiwan</h3><ul><li><b>United States:</b> Cymer heritage in EUV sources, KLA metrology, Applied Materials/Lam equipment, EDA, optical I/O and photonics startups</li><li><b>Japan:</b> DUV systems, photoresists, mask and materials ecosystem</li><li><b>Taiwan:</b> TSMC leading-edge process integration and yield learning</li></ul></div>
+    </div>
+    <p>That distributed ecosystem is itself a moat. China is trying to recreate it inside one national supply chain.</p>
+
+    <h2>My bottom-line assessment</h2>
+    <div class="two-col">
+      <div class="panel"><h3>China is clearly behind in</h3><ol class="numbered"><li>Commercial EUV lithography</li><li>High-NA EUV</li><li>EUV source power and efficiency</li><li>Ultra-precision lithography optics</li><li>Leading-edge photoresist and mask materials</li><li>Lithography metrology and inspection at the frontier</li><li>Scanner field reliability and service infrastructure</li><li>Photonic/electronic co-packaging at hyperscale</li><li>Mature design-kit, IP and customer-qualification ecosystems</li></ol></div>
+      <div class="panel"><h3>China is competitive or strong in</h3><ol class="numbered"><li>Optical transceiver manufacturing</li><li>Fiber-optic communications</li><li>Telecom infrastructure</li><li>Industrial lasers</li><li>Mature-node photonic fabrication</li><li>Applied optical components</li><li>Fast domestic deployment driven by state procurement</li><li>Academic photonic computing and quantum-photonics research</li></ol></div>
+    </div>
+
+    <h2>The test to apply to conference teams</h2>
+    <p>For every team claiming a breakthrough, ask for:</p>
+    <ol class="numbered">
+      <li>Exact process node and wafer size</li>
+      <li>Scanner model and light source</li>
+      <li>Resolution, overlay, throughput and uptime</li>
+      <li>Wafer yield and defect density</li>
+      <li>Number of wafers processed</li>
+      <li>Packaging loss and fiber-coupling loss</li>
+      <li>Thermal cycling and reliability data</li>
+      <li>Customer shipment or qualification evidence</li>
+      <li>Whether the result is a paper, prototype, pilot line, sample or volume product</li>
+    </ol>
+    <p>The Chinese conference landscape may look full of advanced photonics because China has a lot of research, pilots, component production and state-backed commercialization. That is real progress. The remaining gap is the brutal industrial layer: precision, yield, reliability, materials and repeatable volume economics.</p>
+
+    <h2>Sources supplied with the analysis</h2>
+    <ol class="source-list">
+      <li><b>[1]</b> <a href="https://www.asml.com/en/products/euv-lithography-systems">ASML EUV lithography systems</a> — ASML EUV lithography systems</li>
+      <li><b>[2]</b> <a href="https://www.asml.com/en/products/duv-lithography-systems">ASML DUV lithography systems</a> — ASML DUV lithography systems</li>
+      <li><b>[3]</b> <a href="https://www.reuters.com/world/china/china-starts-production-home-grown-immersion-duv-chipmaking-tools-source-2026-07-28">Reuters: China domestic immersion DUV report</a> — Reuters China domestic immersion DUV report</li>
+      <li><b>[4]</b> <a href="https://www.cnbc.com/2026/07/28/china-chipmaking-duv-tool-asml-explained.html">CNBC: China DUV caveats</a> — CNBC China DUV caveats</li>
+    </ol>
+
+    <div class="callout"><strong>Evidence and coverage note.</strong><ul><li>The supplied text cites <b>[12]</b> for the CSIS/ACCEL statement, but the corresponding URL was not included. It remains a citation placeholder, not a newly verified source.</li><li>Sources <b>[5]–[11]</b> are not present in the supplied excerpt. They have not been reconstructed or invented.</li><li>“China” and “the West/allied stack” are analytical groupings with substantial internal variation.</li><li>The photographs discussed elsewhere were too compressed for reliable OCR. Original-resolution files are required before attributing names, affiliations, products or claims to specific teams.</li></ul></div>
+
+    <div class="footer-note">Formatted from user-supplied analysis. Resend original-resolution photographs to add the OCR, translation, company/team identification and image-evidence appendix.</div>
+  </main>
+</div>
+</body>
+</html>
